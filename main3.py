@@ -1,5 +1,3 @@
-# IR LAB 2 Asignment
-
 import os
 import re
 from collections import defaultdict
@@ -11,7 +9,7 @@ from nltk.tokenize import word_tokenize
 stemmer = PorterStemmer()
 stop_words = set(stopwords.words('english'))
 
-# pre processing
+# Function to preprocess the text
 def preprocess_text(text):
     tokens = word_tokenize(text.lower())
     tokens = [t for t in tokens if t.isalpha()]
@@ -37,7 +35,6 @@ def create_dictionary_and_postings(corpus_dir):
                     dictionary[token].append((doc_id, tokens.count(token)))
                 doc_id += 1
     return dictionary, doc_lengths, doc_filenames
-
 
 # Function to calculate the tf-idf weights
 def calculate_tf_idf_weights(dictionary, doc_lengths, N):
@@ -70,7 +67,7 @@ def search_and_rank(tf_idf_weights, doc_lengths, doc_filenames, query):
         doc_scores[doc_id] = cosine_similarity
     return [(doc_filenames[doc_id], score) for doc_id, score in sorted(doc_scores.items(), key=lambda x: (-x[1], x[0]))[:10]]
 
-
+# Main function
 def main():
     corpus_dir = 'corpus'  # replace with your corpus directory
     dictionary, doc_lengths, doc_filenames = create_dictionary_and_postings(corpus_dir)
@@ -80,7 +77,7 @@ def main():
     ranked_docs = search_and_rank(tf_idf_weights, doc_lengths, doc_filenames, query)
     for doc in ranked_docs:
         print(doc)
-        
+
 if __name__ == "__main__":
     import math
     main()
