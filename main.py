@@ -72,7 +72,7 @@ def search_and_rank(tf_idf_weights, doc_lengths, doc_filenames, query):
 
 
 def main():
-    corpus_dir = 'corpus'  # replace with your corpus directory
+    corpus_dir = 'corpus' 
     dictionary, doc_lengths, doc_filenames = create_dictionary_and_postings(corpus_dir)
     N = len(doc_lengths)
     tf_idf_weights = calculate_tf_idf_weights(dictionary, doc_lengths, N)
